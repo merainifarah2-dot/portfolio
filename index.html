@@ -139,7 +139,9 @@ nav{
 .parc-left{
   padding:8rem 3rem 5rem;
   border-right:1px solid var(--border);
-  display:flex;flex-direction:column;justify-content:space-between;
+  display:flex;flex-direction:column;justify-content:flex-start;
+  gap:2rem;
+  position:relative;
 }
 .parc-num{
   font-size:clamp(8rem,18vw,16rem);font-family:var(--serif);
@@ -459,15 +461,15 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
     <div>
       <div class="s-eyebrow fu">01 / Parcours</div>
       <h2 class="parc-title fu d1">Un chemin<br/><em>non-linéaire</em></h2>
-    </div>
-    <p class="parc-text fu d2">
+      <p class="parc-text fu d2" style="margin-top:1.5rem;">
       Mon parcours ne ressemble pas au chemin classique — et c'est précisément ce qui le rend utile.
       J'ai commencé par l'informatique, appris à penser en systèmes.
       Puis la mécanique m'a appris comment les systèmes physiques fonctionnent dans le monde réel.<br/><br/>
       Aujourd'hui, le <strong>génie des opérations</strong> à l'ÉTS est l'endroit où tout se connecte.
       En parallèle, plus de <strong>700 heures</strong> d'évaluation de modèles IA chez Outlier AI
       m'ont donné une compréhension concrète des systèmes d'intelligence artificielle.
-    </p>
+      </p>
+    </div>
     <div class="parc-num">01</div>
   </div>
   <div class="parc-right">
