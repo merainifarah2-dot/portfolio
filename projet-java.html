@@ -1,1 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Simulateur de physique — Farah Meraini</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgZmlsbD0nIzVDMkUxMCcvPjx0ZXh0IHk9JzcyJyB4PSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZm9udC1zaXplPSc1NScgZm9udC1mYW1pbHk9J0dlb3JnaWEsc2VyaWYnIGZpbGw9JyNGMEVBRTAnIGZvbnQtc3R5bGU9J2l0YWxpYyc+Rk08L3RleHQ+PC9zdmc+"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,200;1,9..144,300&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0A0A0A;--panel:#111;--red:#5C2E10;
+  --warm:#F0EAE0;--mid:#5A5A5A;--dim:#222;
+  --border:rgba(255,255,255,0.06);
+  --mono:'DM Mono',monospace;--serif:'Fraunces',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--warm);font-family:var(--mono);overflow-x:hidden;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.28;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(10,10,10,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-back{display:flex;align-items:center;gap:0.6rem;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);transition:color 0.2s;cursor:pointer;}
+.nav-back:hover{color:var(--warm);}
+.nav-back::before{content:'←';font-size:0.8rem;}
+.nav-logo{font-family:var(--serif);font-size:1rem;font-weight:200;font-style:italic;color:var(--warm);}
+.nav-tag{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);}
+
+/* HERO PROJET */
+.proj-hero{
+  min-height:100vh;padding:8rem 3rem 5rem;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+  border-bottom:1px solid var(--border);
+}
+.proj-hero-left{}
+.proj-eyebrow{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:1.2rem;}
+.proj-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,5rem);font-weight:200;line-height:0.95;color:var(--warm);letter-spacing:-0.02em;margin-bottom:1.5rem;}
+.proj-title em{font-style:italic;color:var(--mid);}
+.proj-desc{font-size:0.85rem;color:var(--mid);line-height:1.9;max-width:440px;margin-bottom:2.5rem;}
+.proj-meta{display:flex;gap:2rem;flex-wrap:wrap;}
+.proj-meta-item{}
+.proj-meta-label{font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:0.3rem;}
+.proj-meta-val{font-size:0.8rem;color:var(--warm);}
+.proj-hero-right{}
+.proj-hero-img{
+  width:100%;aspect-ratio:16/10;
+  background:var(--dim);
+  border:1px solid var(--border);
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.proj-hero-img-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:24px 24px;}
+.proj-hero-img span{font-size:0.65rem;color:rgba(255,255,255,0.1);letter-spacing:0.12em;text-transform:uppercase;position:relative;z-index:1;}
+.proj-pills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.5rem;}
+.pill{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.22rem 0.6rem;border:1px solid var(--dim);color:var(--mid);}
+
+/* SECTIONS */
+.proj-section{padding:5rem 3rem;border-bottom:1px solid var(--border);}
+.proj-section:nth-child(even){background:var(--panel);}
+.proj-section-inner{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start;}
+.proj-section-label{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);padding-top:0.3rem;}
+.proj-section-content h3{font-family:var(--serif);font-size:1.8rem;font-weight:200;color:var(--warm);margin-bottom:1rem;line-height:1.1;}
+.proj-section-content p{font-size:0.85rem;color:var(--mid);line-height:1.9;margin-bottom:1rem;}
+.proj-section-content strong{color:var(--warm);font-weight:400;}
+.proj-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-top:1rem;}
+.proj-list li{font-size:0.82rem;color:var(--mid);padding-left:1.2rem;position:relative;line-height:1.6;}
+.proj-list li::before{content:'→';position:absolute;left:0;color:var(--red);}
+
+/* PLACEHOLDER IMAGE */
+.proj-img-placeholder{
+  width:100%;aspect-ratio:16/9;
+  background:var(--dim);border:1px solid var(--border);
+  border-radius:4px;margin-top:2rem;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.proj-img-placeholder .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:20px 20px;}
+.proj-img-placeholder span{font-size:0.6rem;color:rgba(255,255,255,0.08);letter-spacing:0.12em;text-transform:uppercase;position:relative;z-index:1;}
+
+/* NEXT PROJECT */
+.proj-next{padding:4rem 3rem;display:flex;justify-content:space-between;align-items:center;}
+.proj-next-label{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);}
+.proj-next-link{font-family:var(--serif);font-size:1.5rem;font-weight:200;color:var(--warm);transition:color 0.2s;display:flex;align-items:center;gap:0.8rem;}
+.proj-next-link:hover{color:var(--red);}
+.proj-next-link::after{content:'→';}
+
+/* FADE */
+.fu{opacity:0;transform:translateY(20px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+.fu.vis{opacity:1;transform:none;}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  .proj-hero,.proj-section-inner{grid-template-columns:1fr;}
+  .proj-hero{padding:7rem 1.5rem 4rem;}
+  .proj-section{padding:4rem 1.5rem;}
+  .proj-next{padding:3rem 1.5rem;flex-direction:column;gap:1rem;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">Retour au portfolio</a>
+  <span class="nav-logo">Farah Meraini</span>
+  <span class="nav-tag">02 / Projets</span>
+</nav>
+
+<!-- HERO -->
+<section class="proj-hero">
+  <div class="proj-hero-left">
+    <div class="proj-eyebrow fu">Informatique · Cégep · 2025</div>
+    <h1 class="proj-title fu d1">Simulateur de<br/><em>physique Java</em></h1>
+    <p class="proj-desc fu d2">Application Java simulant des éléments physiques réels dans un environnement de jeu interactif. Développé en équipe de 4 étudiants avec la méthodologie Scrum sur une session complète.</p>
+    <div class="proj-meta fu d3">
+      <div class="proj-meta-item">
+        <div class="proj-meta-label">Année</div>
+        <div class="proj-meta-val">2025</div>
+      </div>
+      <div class="proj-meta-item">
+        <div class="proj-meta-label">Équipe</div>
+        <div class="proj-meta-val">4 personnes</div>
+      </div>
+      <div class="proj-meta-item">
+        <div class="proj-meta-label">Rôle</div>
+        <div class="proj-meta-val">Scrum Master</div>
+      </div>
+      <div class="proj-meta-item">
+        <div class="proj-meta-label">Durée</div>
+        <div class="proj-meta-val">1 session</div>
+      </div>
+    </div>
+    <div class="proj-pills fu d3">
+      <span class="pill">Java</span>
+      <span class="pill">Scrum</span>
+      <span class="pill">Physique simulée</span>
+      <span class="pill">OOP</span>
+      <span class="pill">Game Design</span>
+    </div>
+  </div>
+  <div class="proj-hero-right fu d2">
+    <div class="proj-hero-img">
+      <div class="proj-hero-img-grid"></div>
+      <span>Screenshot principal à venir</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXTE -->
+<section class="proj-section">
+  <div class="proj-section-inner">
+    <div class="proj-section-label fu">Contexte</div>
+    <div class="proj-section-content fu d1">
+      <h3>Le projet final du DEC</h3>
+      <p>Dans le cadre de notre dernière session au Collège de Maisonneuve, notre équipe devait concevoir une application Java intégrant les concepts appris tout au long du programme — physique, mathématiques, programmation orientée objet.</p>
+      <p>Le défi : <strong>modéliser des phénomènes physiques réels</strong> dans un environnement interactif et ludique, tout en gérant un projet en équipe sur plusieurs semaines.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LE JEU -->
+<section class="proj-section">
+  <div class="proj-section-inner">
+    <div class="proj-section-label fu">Le jeu</div>
+    <div class="proj-section-content fu d1">
+      <h3>Inspiré de Fireboy & Watergirl</h3>
+      <p>Notre jeu s'inspire de Fireboy & Watergirl mais avec un seul personnage contrôlable à travers plusieurs niveaux thématiques, chacun centré sur un phénomène physique différent.</p>
+      <ul class="proj-list">
+        <li>Niveau Ressort — simulation de force élastique et d'oscillations</li>
+        <li>Niveau Pendule — mouvement pendulaire et conservation d'énergie</li>
+        <li>Niveau Catapulte — projectile et trajectoire balistique</li>
+        <li>Niveau Friction — forces de frottement et surfaces variables</li>
+        <li>Niveau Électrique — simulation de champs et attractions</li>
+      </ul>
+      <div class="proj-img-placeholder">
+        <div class="grid"></div>
+        <span>Screenshots des niveaux à venir</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MON RÔLE -->
+<section class="proj-section">
+  <div class="proj-section-inner">
+    <div class="proj-section-label fu">Mon rôle</div>
+    <div class="proj-section-content fu d1">
+      <h3>Scrum Master de l'équipe</h3>
+      <p>En tant que Scrum Master, j'étais responsable de la coordination de l'équipe et du respect de la méthodologie agile tout au long du projet.</p>
+      <ul class="proj-list">
+        <li>Organisation des réunions hebdomadaires — What did you do? What will you do? Any blockers?</li>
+        <li>Suivi du backlog et des livrables à chaque sprint</li>
+        <li>Résolution des blocages et facilitation de la communication</li>
+        <li>Documentation des décisions et de l'avancement</li>
+      </ul>
+      <p style="margin-top:1rem;">J'ai aussi contribué au développement — principalement sur la <strong>simulation du ressort</strong> et l'<strong>interface utilisateur</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPRENTISSAGES -->
+<section class="proj-section">
+  <div class="proj-section-inner">
+    <div class="proj-section-label fu">Apprentissages</div>
+    <div class="proj-section-content fu d1">
+      <h3>Ce que j'ai appris</h3>
+      <ul class="proj-list">
+        <li>Gestion d'un projet en équipe avec des contraintes de temps réelles</li>
+        <li>Application concrète des concepts de physique en code</li>
+        <li>Méthodologie Scrum appliquée — pas juste théorique</li>
+        <li>Débogage de simulations physiques et calibrage des paramètres</li>
+        <li>Communication et leadership dans un contexte technique</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT PROJECT -->
+<div class="proj-next">
+  <div>
+    <div class="proj-next-label">Projet suivant</div>
+  </div>
+  <a href="projet-robot.html" class="proj-next-link">Robot auto-équilibré</a>
+</div>
+
+<script>
+const obs = new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');});},{threshold:0.08});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
