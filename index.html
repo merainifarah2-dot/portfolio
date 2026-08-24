@@ -575,6 +575,34 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
   color:var(--mid);line-height:1.6;letter-spacing:0.02em;
 }
 
+
+/* NAV DROPDOWN */
+.nav-dropdown-wrap{position:relative;}
+.nav-dropdown{
+  position:absolute;top:calc(100% + 1rem);left:50%;
+  transform:translateX(-50%);
+  background:#111;
+  border:1px solid var(--border);
+  min-width:180px;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.2s,transform 0.2s;
+  transform:translateX(-50%) translateY(-6px);
+  z-index:600;
+}
+.nav-dropdown-wrap:hover .nav-dropdown{
+  opacity:1;pointer-events:all;
+  transform:translateX(-50%) translateY(0);
+}
+.nav-dropdown a{
+  font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--mid);padding:0.8rem 1rem;
+  border-bottom:1px solid var(--border);
+  transition:color 0.2s,background 0.2s;
+}
+.nav-dropdown a:last-child{border-bottom:none;}
+.nav-dropdown a:hover{color:var(--warm);background:rgba(255,255,255,0.03);}
+
 /* FADE */
 .fu{opacity:0;transform:translateY(20px);transition:opacity 0.85s cubic-bezier(0.16,1,0.3,1),transform 0.85s cubic-bezier(0.16,1,0.3,1);}
 .fu.vis{opacity:1;transform:none;}
@@ -601,7 +629,14 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
   <span class="nl">Farah Meraini <span>/ GOL & IA</span></span>
   <ul class="nr">
     <li><a href="#parcours">Parcours</a></li>
-    <li><a href="#projets">Projets</a></li>
+    <li style="position:relative;" class="nav-dropdown-wrap">
+      <a href="#projets" style="display:flex;align-items:center;gap:0.3rem;">Projets</a>
+      <div class="nav-dropdown">
+        <a href="projet-java.html">Simulateur Java</a>
+        <a href="projet-robot.html">Robot auto-équilibré</a>
+        <a href="projet-dashboard.html">Dashboard Power BI</a>
+      </div>
+    </li>
     <li><a href="#experience">Expérience</a></li>
     <li><a href="#competences">Compétences</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -726,7 +761,7 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
   <div class="proj-scroll fu d2" id="psw">
     <div class="proj-track">
 
-      <div class="pc wide">
+      <div class="pc wide" onclick="window.location.href='projet-java.html'" style="cursor:pointer;">
         <div class="pc-tag">Informatique · Cégep · 2025</div>
         <div class="pc-img"><div class="pc-img-g"></div><span>Screenshot à venir</span></div>
         <h3>Simulateur de physique — Jeu Java</h3>
@@ -737,7 +772,7 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
         </div>
       </div>
 
-      <div class="pc">
+      <div class="pc" onclick="window.location.href='projet-robot.html'" style="cursor:pointer;">
         <div class="pc-tag">Mécanique · ÉTS · 2024</div>
         <div class="pc-img" style="background:#0D1A0D;"><div class="pc-img-g"></div><span>Photos à venir</span></div>
         <h3>Robot auto-équilibré — 2 roues</h3>
