@@ -295,6 +295,8 @@ nav{
   padding:8rem 3rem 5rem;
   border-right:1px solid var(--border);
   position:relative;
+  overflow:hidden;
+  display:flex;flex-direction:column;
 }
 .sk-left-num{
   position:absolute;bottom:2rem;left:2rem;
@@ -516,6 +518,55 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
 }
 .exp-card:hover .exp-card-arrow{
   opacity:1;
+}
+
+
+/* ══ CARROUSEL OUTILS ══ */
+.tools-carousel-wrap{
+  position:relative;
+  overflow:hidden;
+  margin:auto 0 4rem;
+  width:100%;
+  mask-image:linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+.tools-carousel{
+  display:flex;
+  gap:1rem;
+  width:max-content;
+  animation:scroll-tools 25s linear infinite;
+}
+.tools-carousel:hover{animation-play-state:paused;}
+@keyframes scroll-tools{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+.tool-card{
+  width:260px;flex-shrink:0;
+  background:#161616;
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:10px;
+  padding:1.8rem 1.5rem;
+  display:flex;flex-direction:column;gap:1rem;
+}
+.tool-card-dots{
+  display:flex;gap:5px;margin-bottom:0.3rem;
+}
+.tool-card-dots span{
+  width:8px;height:8px;border-radius:50%;
+}
+.tool-card-dots span:nth-child(1){background:#FF5F57;}
+.tool-card-dots span:nth-child(2){background:#FFBD2E;}
+.tool-card-dots span:nth-child(3){background:#28CA41;}
+.tool-card-icon{font-size:2.5rem;}
+.tool-card-name{
+  font-family:var(--mono);font-size:0.82rem;
+  font-weight:500;color:var(--warm);
+  letter-spacing:0.06em;
+}
+.tool-card-desc{
+  font-family:var(--mono);font-size:0.65rem;
+  color:var(--mid);line-height:1.6;letter-spacing:0.02em;
 }
 
 /* FADE */
@@ -756,6 +807,94 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
   <div class="sk-left">
     <div class="s-eyebrow fu">04 / Compétences</div>
     <h2 class="parc-title fu d1">Mon<br/><em>outillage</em></h2>
+    
+      
+      
+      <div class="tools-carousel-wrap fu d2">
+        <div class="tools-carousel">
+          <div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">⚙️</div>
+          <div class="tool-card-name">SolidWorks</div>
+          <div class="tool-card-desc">Modélisation 3D & assemblages mécaniques</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">☕</div>
+          <div class="tool-card-name">Java</div>
+          <div class="tool-card-desc">POO & simulation physique</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">📊</div>
+          <div class="tool-card-name">Excel</div>
+          <div class="tool-card-desc">Analyse & tableaux de bord</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">🐙</div>
+          <div class="tool-card-name">GitHub</div>
+          <div class="tool-card-desc">Versioning & collaboration</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">📈</div>
+          <div class="tool-card-name">Power BI</div>
+          <div class="tool-card-desc">Visualisation analytique</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">📐</div>
+          <div class="tool-card-name">AutoCAD</div>
+          <div class="tool-card-desc">Dessin technique & plans 2D</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">🔢</div>
+          <div class="tool-card-name">MATLAB</div>
+          <div class="tool-card-desc">Calcul numérique & contrôle</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">🐍</div>
+          <div class="tool-card-name">Python</div>
+          <div class="tool-card-desc">Automatisation & données</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">⚙️</div>
+          <div class="tool-card-name">SolidWorks</div>
+          <div class="tool-card-desc">Modélisation 3D & assemblages mécaniques</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">☕</div>
+          <div class="tool-card-name">Java</div>
+          <div class="tool-card-desc">POO & simulation physique</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">📊</div>
+          <div class="tool-card-name">Excel</div>
+          <div class="tool-card-desc">Analyse & tableaux de bord</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">🐙</div>
+          <div class="tool-card-name">GitHub</div>
+          <div class="tool-card-desc">Versioning & collaboration</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">📈</div>
+          <div class="tool-card-name">Power BI</div>
+          <div class="tool-card-desc">Visualisation analytique</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">📐</div>
+          <div class="tool-card-name">AutoCAD</div>
+          <div class="tool-card-desc">Dessin technique & plans 2D</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">🔢</div>
+          <div class="tool-card-name">MATLAB</div>
+          <div class="tool-card-desc">Calcul numérique & contrôle</div>
+        </div><div class="tool-card">
+          <div class="tool-card-dots"><span></span><span></span><span></span></div>
+          <div class="tool-card-icon">🐍</div>
+          <div class="tool-card-name">Python</div>
+          <div class="tool-card-desc">Automatisation & données</div>
+        </div>
+        </div>
+      </div>
     <div class="sk-left-num">04</div>
   </div>
   <div class="sk-right">
