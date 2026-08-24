@@ -5,7 +5,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgZmlsbD0nIzVDMkUxMCcvPjx0ZXh0IHk9JzcyJyB4PSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZm9udC1zaXplPSc1NScgZm9udC1mYW1pbHk9J0dlb3JnaWEsc2VyaWYnIGZpbGw9JyNGMEVBRTAnIGZvbnQtc3R5bGU9J2l0YWxpYyc+Rk08L3RleHQ+PC9zdmc+"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Farah Meraini</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,200;1,9..144,300&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,200;1,9..144,300&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --bg:#0A0A0A;
@@ -374,6 +374,150 @@ footer{
 }
 footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);}
 
+
+/* ══ DRAWER ══ */
+.drawer-overlay{
+  position:fixed;inset:0;z-index:800;
+  background:rgba(0,0,0,0.7);
+  opacity:0;pointer-events:none;
+  transition:opacity 0.4s;
+  backdrop-filter:blur(4px);
+}
+.drawer-overlay.open{opacity:1;pointer-events:all;}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;z-index:900;
+  width:min(520px,90vw);
+  background:#111;
+  border-left:1px solid rgba(255,255,255,0.07);
+  transform:translateX(100%);
+  transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);
+  overflow-y:auto;
+  padding:3rem 2.5rem;
+  display:flex;flex-direction:column;gap:2rem;
+}
+.drawer.open{transform:translateX(0);}
+.drawer::-webkit-scrollbar{width:2px;}
+.drawer::-webkit-scrollbar-track{background:transparent;}
+.drawer::-webkit-scrollbar-thumb{background:var(--dim);}
+.drawer-close{
+  position:absolute;top:1.5rem;right:1.5rem;
+  width:36px;height:36px;
+  border:1px solid var(--border);
+  background:transparent;color:var(--mid);
+  font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;font-family:var(--mono);
+}
+.drawer-close:hover{border-color:var(--red);color:var(--warm);}
+.drawer-co{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--red);
+}
+.drawer-title{
+  font-family:var(--serif);font-size:2rem;
+  font-weight:200;color:var(--warm);
+  line-height:1.1;letter-spacing:-0.02em;
+}
+.drawer-period{
+  font-family:var(--mono);font-size:0.62rem;
+  color:var(--mid);letter-spacing:0.06em;
+}
+.drawer-divider{height:1px;background:var(--border);}
+.drawer-section h4{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--red);margin-bottom:1rem;
+  padding-bottom:0.5rem;border-bottom:1px solid var(--dim);
+}
+.drawer-section p{
+  font-size:0.82rem;color:var(--mid);line-height:1.8;
+}
+.drawer-list{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.drawer-list li{
+  font-size:0.8rem;color:var(--mid);
+  padding-left:1rem;position:relative;line-height:1.6;
+}
+.drawer-list li::before{content:'→';position:absolute;left:0;color:var(--red);}
+.drawer-stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+}
+.drawer-stat{
+  padding:1rem;border:1px solid var(--dim);
+}
+.drawer-stat-n{
+  font-family:var(--serif);font-size:1.8rem;
+  font-weight:200;color:var(--warm);line-height:1;
+}
+.drawer-stat-n span{color:var(--red);}
+.drawer-stat-l{
+  font-family:var(--mono);font-size:0.55rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--mid);margin-top:0.3rem;
+}
+.drawer-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.drawer-tag{
+  font-family:var(--mono);font-size:0.55rem;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.25rem 0.6rem;
+  border:1px solid rgba(92,46,16,0.3);color:var(--red);
+}
+/* exp-card clickable */
+.exp-card{cursor:pointer;}
+
+
+/* annotation manuscrite */
+.exp-annotation{
+  position:absolute;
+  left:-140px;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;flex-direction:column;align-items:center;
+  opacity:0;
+  transition:opacity 0.4s;
+  pointer-events:none;
+  z-index:10;
+}
+.exp-wrap:hover .exp-annotation{opacity:1;}
+.exp-annotation-text{
+  font-family:'Caveat',cursive;
+  font-size:1rem;
+  color:var(--mid);
+  white-space:nowrap;
+  transform:rotate(-8deg);
+  line-height:1.2;
+  text-align:center;
+}
+.exp-annotation svg{
+  margin-top:0.2rem;
+  transform:rotate(15deg);
+}
+
+/* peek effect sur les drawers */
+#drawer-outlier,#drawer-ingenieuses{
+  transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+.peek-outlier #drawer-outlier{
+  transform:translateX(calc(100% - 55px));
+}
+.peek-ingenieuses #drawer-ingenieuses{
+  transform:translateX(calc(100% - 55px));
+}
+
+/* flèche sur la carte au hover */
+.exp-card-arrow{
+  position:absolute;
+  bottom:1rem;right:1rem;
+  font-family:var(--mono);font-size:0.72rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--red);
+  opacity:0.5;
+  transition:opacity 0.3s,transform 0.3s;
+}
+.exp-card:hover .exp-card-arrow{
+  opacity:1;
+}
+
 /* FADE */
 .fu{opacity:0;transform:translateY(20px);transition:opacity 0.85s cubic-bezier(0.16,1,0.3,1),transform 0.85s cubic-bezier(0.16,1,0.3,1);}
 .fu.vis{opacity:1;transform:none;}
@@ -568,10 +712,17 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
         <div class="s-eyebrow fu">03 / Expérience</div>
         <h2 class="parc-title fu d1">Où j'ai<br/><em>contribué</em></h2>
       </div>
+      <div class="exp-annotation">
+        <div class="exp-annotation-text">cliquer<br/>pour plus</div>
+        <svg width="40" height="30" viewBox="0 0 40 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 4 C8 2, 18 1, 28 8 C35 13, 38 20, 36 26" stroke="#5A5A5A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M33 28 L36 26 L34 22" stroke="#5A5A5A" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
       <div class="exp-left-num">03</div>
     </div>
     <div class="exp-right">
-      <div class="exp-card fu">
+      <div class="exp-card fu" onclick="openDrawer('outlier')">
         <div class="exp-co">Outlier AI — États-Unis</div>
         <h3>AI Trainer</h3>
         <div class="exp-period">Déc. 2024 — Présent · Contrat · Remote</div>
@@ -582,8 +733,9 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
           <li>Détection de contenus dangereux — projet sécurité IA</li>
           <li>Rémunération : 28–35 $US/h</li>
         </ul>
+        <span class="exp-card-arrow">Voir plus →</span>
       </div>
-      <div class="exp-card fu d1">
+      <div class="exp-card fu d1" onclick="openDrawer('ingenieuses')">
         <div class="exp-co">Les Ingénieuses · ÉTS</div>
         <h3>Directrice Blogue</h3>
         <div class="exp-period">2026 — Présent · Bénévolat</div>
@@ -593,6 +745,7 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
           <li>Projets mentorat et sensibilisation scolaire</li>
           <li>Initiatives de bourses pour femmes en STIM</li>
         </ul>
+        <span class="exp-card-arrow">Voir plus →</span>
       </div>
     </div>
   </div>
@@ -743,6 +896,37 @@ const cobs=new IntersectionObserver(e=>{
 },{threshold:.5});
 document.querySelectorAll('.counter').forEach(el=>cobs.observe(el));
 
+
+// ── DRAWER ──
+function openDrawer(id) {
+  document.querySelectorAll('.drawer').forEach(d => d.classList.remove('open'));
+  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('drawer-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.body.classList.remove('peek-outlier','peek-ingenieuses');
+}
+function closeDrawer() {
+  document.querySelectorAll('.drawer').forEach(d => d.classList.remove('open'));
+  document.getElementById('drawer-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+
+// peek on hover
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.exp-card');
+  const ids = ['outlier', 'ingenieuses'];
+  cards.forEach((card, i) => {
+    card.addEventListener('mouseenter', () => {
+      if(!document.querySelector('.drawer.open'))
+        document.body.classList.add('peek-' + ids[i]);
+    });
+    card.addEventListener('mouseleave', () => {
+      document.body.classList.remove('peek-' + ids[i]);
+    });
+  });
+});
+
 // ── DRAG SCROLL ──
 const psw=document.getElementById('psw');
 let down=false,sx,sl;
@@ -754,5 +938,98 @@ psw.addEventListener('mousemove',e=>{
   psw.scrollLeft=sl-(e.pageX-psw.offsetLeft-sx)*1.5;
 });
 </script>
+
+<!-- ══ DRAWER OVERLAY ══ -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER OUTLIER AI -->
+<div class="drawer" id="drawer-outlier">
+  <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  <div>
+    <div class="drawer-co">Outlier AI — États-Unis</div>
+    <div class="drawer-title">AI Trainer</div>
+    <div class="drawer-period">Déc. 2024 — Présent · Contrat · Remote</div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-stats">
+    <div class="drawer-stat">
+      <div class="drawer-stat-n">700<span>+</span></div>
+      <div class="drawer-stat-l">Heures accumulées</div>
+    </div>
+    <div class="drawer-stat">
+      <div class="drawer-stat-n">28<span>–35</span></div>
+      <div class="drawer-stat-l">$US / heure</div>
+    </div>
+    <div class="drawer-stat">
+      <div class="drawer-stat-n">7<span>+</span></div>
+      <div class="drawer-stat-l">Projets différents</div>
+    </div>
+    <div class="drawer-stat">
+      <div class="drawer-stat-n">3</div>
+      <div class="drawer-stat-l">Types de médias évalués</div>
+    </div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-section">
+    <h4>Description</h4>
+    <p>Évaluation et amélioration de modèles d'intelligence artificielle pour des clients corporatifs américains via la plateforme Outlier AI. Chaque projet nécessite une formation spécifique et un examen de qualification avant de pouvoir travailler.</p>
+  </div>
+  <div class="drawer-section">
+    <h4>Projets réalisés</h4>
+    <ul class="drawer-list">
+      <li>Évaluation A/B de réponses IA — qualité, véracité, biais, longueur, localisation</li>
+      <li>Rédaction de prompts complexes pour induire des erreurs dans les modèles</li>
+      <li>Analyse et annotation de vidéos et images selon critères définis</li>
+      <li>Détection de contenus dangereux — armes, discours haineux, désinformation</li>
+      <li>Correction et amélioration de réponses IA sur des sujets sensibles</li>
+    </ul>
+  </div>
+  <div class="drawer-section">
+    <h4>Compétences développées</h4>
+    <div class="drawer-tags">
+      <span class="drawer-tag">Prompt Engineering</span>
+      <span class="drawer-tag">LLM Evaluation</span>
+      <span class="drawer-tag">AI Safety</span>
+      <span class="drawer-tag">RLHF</span>
+      <span class="drawer-tag">Pensée critique</span>
+      <span class="drawer-tag">Analyse de données</span>
+    </div>
+  </div>
+</div>
+
+<!-- DRAWER INGÉNIEUSES -->
+<div class="drawer" id="drawer-ingenieuses">
+  <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  <div>
+    <div class="drawer-co">Les Ingénieuses · ÉTS</div>
+    <div class="drawer-title">Directrice Blogue</div>
+    <div class="drawer-period">2026 — Présent · Bénévolat</div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-section">
+    <h4>À propos du club</h4>
+    <p>Les Ingénieuses est un club étudiant de l'ÉTS dont la mission est de favoriser la place des femmes en STIM. Le club mène plusieurs initiatives : bourses pour femmes en génie, programme de mentorat, visites dans les écoles secondaires pour inspirer les jeunes filles vers les sciences.</p>
+  </div>
+  <div class="drawer-section">
+    <h4>Mon rôle</h4>
+    <ul class="drawer-list">
+      <li>Rédaction d'articles de blogue publiés sur le site officiel du club</li>
+      <li>Sujets couverts : parcours en génie, conseils de carrière, actualités STIM</li>
+      <li>Participation aux événements et initiatives du club</li>
+      <li>Implication dans les projets mentorat et sensibilisation scolaire</li>
+      <li>Contribution aux initiatives de bourses pour femmes en STIM</li>
+    </ul>
+  </div>
+  <div class="drawer-section">
+    <h4>Compétences développées</h4>
+    <div class="drawer-tags">
+      <span class="drawer-tag">Rédaction</span>
+      <span class="drawer-tag">Communication</span>
+      <span class="drawer-tag">Leadership</span>
+      <span class="drawer-tag">Implication communautaire</span>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
