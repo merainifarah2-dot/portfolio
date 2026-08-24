@@ -139,9 +139,7 @@ nav{
 .parc-left{
   padding:8rem 3rem 5rem;
   border-right:1px solid var(--border);
-  display:flex;flex-direction:column;justify-content:flex-start;
-  gap:2rem;
-  position:relative;
+  display:flex;flex-direction:column;justify-content:flex-start;position:relative;
 }
 .parc-num{
   font-size:clamp(8rem,18vw,16rem);font-family:var(--serif);
@@ -164,6 +162,7 @@ nav{
   position:relative;z-index:2;max-width:380px;
 }
 .parc-text strong{color:var(--warm);font-weight:400;}
+.parc-top{display:flex;flex-direction:column;gap:1.5rem;}
 .parc-right{
   padding:8rem 3rem 5rem;
   display:flex;flex-direction:column;justify-content:center;
@@ -458,10 +457,10 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
 <!-- ══ PARCOURS ══ -->
 <div class="panel" id="parcours">
   <div class="parc-left">
-    <div>
+    <div class="parc-top">
       <div class="s-eyebrow fu">01 / Parcours</div>
       <h2 class="parc-title fu d1">Un chemin<br/><em>non-linéaire</em></h2>
-      <p class="parc-text fu d2" style="margin-top:1.5rem;">
+      <p class="parc-text fu d2">
       Mon parcours ne ressemble pas au chemin classique — et c'est précisément ce qui le rend utile.
       J'ai commencé par l'informatique, appris à penser en systèmes.
       Puis la mécanique m'a appris comment les systèmes physiques fonctionnent dans le monde réel.<br/><br/>
