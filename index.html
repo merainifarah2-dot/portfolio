@@ -296,7 +296,9 @@ nav{
   border-right:1px solid var(--border);
   position:relative;
   overflow:hidden;
-  display:flex;flex-direction:column;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 }
 .sk-left-num{
   position:absolute;bottom:2rem;left:2rem;
@@ -525,8 +527,10 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
 .tools-carousel-wrap{
   position:relative;
   overflow:hidden;
-  margin:auto 0 4rem;
   width:100%;
+  flex:1;
+  display:flex;
+  align-items:center;
   mask-image:linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
   -webkit-mask-image:linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
 }
@@ -535,6 +539,7 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
   gap:1rem;
   width:max-content;
   animation:scroll-tools 25s linear infinite;
+  padding:1rem 0;
 }
 .tools-carousel:hover{animation-play-state:paused;}
 @keyframes scroll-tools{
