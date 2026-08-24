@@ -579,16 +579,23 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
 /* NAV DROPDOWN */
 .nav-dropdown-wrap{position:relative;}
 .nav-dropdown{
-  position:absolute;top:calc(100% + 1rem);left:50%;
+  position:absolute;top:100%;left:50%;
   transform:translateX(-50%);
   background:#111;
   border:1px solid var(--border);
   min-width:180px;
   display:flex;flex-direction:column;
   opacity:0;pointer-events:none;
-  transition:opacity 0.2s,transform 0.2s;
-  transform:translateX(-50%) translateY(-6px);
+  transition:opacity 0.25s,transform 0.25s;
+  transform:translateX(-50%) translateY(4px);
   z-index:600;
+  padding-top:0.8rem;
+}
+.nav-dropdown::before{
+  content:'';
+  position:absolute;top:-0.8rem;left:0;right:0;
+  height:0.8rem;
+  background:transparent;
 }
 .nav-dropdown-wrap:hover .nav-dropdown{
   opacity:1;pointer-events:all;
@@ -599,6 +606,7 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
   color:var(--mid);padding:0.8rem 1rem;
   border-bottom:1px solid var(--border);
   transition:color 0.2s,background 0.2s;
+  white-space:nowrap;
 }
 .nav-dropdown a:last-child{border-bottom:none;}
 .nav-dropdown a:hover{color:var(--warm);background:rgba(255,255,255,0.03);}
@@ -629,8 +637,8 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
   <span class="nl">Farah Meraini <span>/ GOL & IA</span></span>
   <ul class="nr">
     <li><a href="#parcours">Parcours</a></li>
-    <li style="position:relative;" class="nav-dropdown-wrap">
-      <a href="#projets" style="display:flex;align-items:center;gap:0.3rem;">Projets</a>
+    <li class="nav-dropdown-wrap">
+      <a href="#projets">Projets</a>
       <div class="nav-dropdown">
         <a href="projet-java.html">Simulateur Java</a>
         <a href="projet-robot.html">Robot auto-équilibré</a>
@@ -782,7 +790,7 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
         </div>
       </div>
 
-      <div class="pc" style="border:1px dashed rgba(92,46,16,0.15);background:transparent;">
+      <div class="pc" onclick="window.location.href='projet-dashboard.html'" style="cursor:pointer;border:1px dashed rgba(92,46,16,0.15);background:transparent;">
         <div class="pc-tag">En cours · 2026</div>
         <h3>Dashboard analytique Power BI</h3>
         <p>Tableau de bord sur données opérationnelles publiques. Visualisation de flux logistiques et KPIs de performance.</p>
