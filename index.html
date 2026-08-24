@@ -179,11 +179,17 @@ nav{
 .timeline{display:flex;flex-direction:column;gap:0;position:relative;z-index:1;}
 .tl{display:grid;grid-template-columns:52px 1px 1fr;gap:0 1.5rem;padding-bottom:2.5rem;}
 .tl:last-child{padding-bottom:0;}
-.tl-y{font-size:0.58rem;letter-spacing:0.08em;color:var(--red);padding-top:3px;text-align:right;}
-.tl-s{background:linear-gradient(to bottom,rgba(92,46,16,0.6),transparent);position:relative;}
+.tl-y{font-size:0.58rem;letter-spacing:0.08em;color:var(--red);padding-top:3px;text-align:right;transition:color 0.3s;}
+.tl-s{background:linear-gradient(to bottom,rgba(92,46,16,0.6),transparent);position:relative;padding-top:10px;}
 .tl:last-child .tl-s{background:transparent;}
-.tl-d{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);}
-.tl-c h4{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--warm);margin-bottom:0.2rem;}
+.tl-d{position:absolute;top:0px;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);transition:transform 0.3s,box-shadow 0.3s;}
+.tl-c h4{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--warm);margin-bottom:0.2rem;transition:color 0.3s;}
+.tl:hover .tl-c h4{color:var(--warm);opacity:1;}
+.tl:hover .tl-d{transform:translateX(-50%) scale(1.5);box-shadow:0 0 18px var(--red);}
+.tl:hover .tl-y{color:var(--warm);}
+.tl{cursor:default;transition:opacity 0.3s;}
+.timeline:hover .tl{opacity:0.45;}
+.timeline:hover .tl:hover{opacity:1;}
 .tl-c p{font-size:0.68rem;color:var(--mid);line-height:1.6;letter-spacing:0.02em;}
 
 /* ══ PROJETS ══ */
@@ -539,8 +545,6 @@ footer p{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:v
           <span class="pill">SolidWorks</span><span class="pill">MATLAB</span><span class="pill">Électronique</span>
         </div>
       </div>
-
-
 
       <div class="pc" style="border:1px dashed rgba(92,46,16,0.15);background:transparent;">
         <div class="pc-tag">En cours · 2026</div>
