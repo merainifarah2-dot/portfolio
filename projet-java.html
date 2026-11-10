@@ -30,11 +30,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 
 /* HERO */
 .hero{padding:9rem 0 3.5rem;border-bottom:1px solid var(--border);}
+.hero-top{display:grid;grid-template-columns:1.05fr 0.95fr;gap:3.2rem;align-items:center;margin-bottom:2.6rem;}
 .eyebrow{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:1.2rem;}
 .hero h1{font-family:var(--serif);font-size:clamp(2.6rem,6vw,4.4rem);font-weight:300;line-height:0.98;letter-spacing:-0.02em;color:var(--warm);margin-bottom:0.4rem;}
-.hero .sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--mid);margin-bottom:1.8rem;}
-.hero .lead{font-size:1rem;line-height:1.75;color:var(--text);max-width:58ch;margin-bottom:2.4rem;}
-.hero-img{border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 26px 60px -30px rgba(0,0,0,0.85);line-height:0;max-width:760px;}
+.hero .sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--mid);margin-bottom:1.6rem;}
+.hero .lead{font-size:1rem;line-height:1.75;color:var(--text);max-width:52ch;margin-bottom:0;}
+.hero-img{border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 26px 60px -30px rgba(0,0,0,0.85);line-height:0;width:100%;max-width:440px;justify-self:end;}
 .hero-img img{width:100%;height:auto;display:block;}
 
 /* META STRIP */
@@ -87,6 +88,9 @@ section.block{padding:4rem 0;border-bottom:1px solid var(--border);}
 .d1{transition-delay:0.08s;}.d2{transition-delay:0.16s;}
 
 @media(max-width:820px){
+  .hero-top{grid-template-columns:1fr;gap:2rem;}
+  .hero-img{justify-self:start;max-width:420px;}
+  .hero .lead{margin-bottom:0;}
   .block-grid{grid-template-columns:1fr;gap:1.2rem;}
   .block-label{position:static;font-size:1.3rem;}
   .brief{grid-template-columns:1fr 1fr;}
@@ -106,11 +110,15 @@ section.block{padding:4rem 0;border-bottom:1px solid var(--border);}
 <!-- HERO -->
 <header class="hero">
   <div class="container">
-    <div class="eyebrow fu">Informatique · Cégep · 2025</div>
-    <h1 class="fu d1">NOMIS</h1>
-    <div class="sub fu d1">Jeu de physique 2D en Java</div>
-    <p class="lead fu d2">Un jeu 2D où chaque niveau est construit autour d'un phénomène physique réel. Développé en équipe de quatre sur une session, avec un éditeur qui laisse les joueurs créer leurs propres niveaux. J'y ai tenu le rôle de Scrum Master tout en codant une partie du jeu.</p>
-    <div class="hero-img fu d2"><img src="nomis-menu.png" alt="Menu principal de NOMIS"/></div>
+    <div class="hero-top">
+      <div class="hero-text">
+        <div class="eyebrow fu">Informatique · Cégep · 2025</div>
+        <h1 class="fu d1">NOMIS</h1>
+        <div class="sub fu d1">Jeu de physique 2D en Java</div>
+        <p class="lead fu d2">Un jeu 2D où chaque niveau est construit autour d'un phénomène physique réel. Développé en équipe de quatre sur une session, avec un éditeur qui laisse les joueurs créer leurs propres niveaux. J'y ai tenu le rôle de Scrum Master tout en codant une partie du jeu.</p>
+      </div>
+      <div class="hero-img fu d2"><img src="nomis-menu.png" alt="Menu principal de NOMIS"/></div>
+    </div>
 
     <div class="meta fu">
       <div class="meta-item"><div class="k">Année</div><div class="v">2025</div></div>
@@ -140,11 +148,11 @@ section.block{padding:4rem 0;border-bottom:1px solid var(--border);}
     <div class="block-label fu">Le jeu</div>
     <div class="block-body fu d1">
       <h3>Des niveaux construits à partir d'éléments physiques</h3>
-      <p>L'idée de départ s'inspire librement de Fireboy and Watergirl : des niveaux en 2D qui tiennent sur un seul écran. Le résultat est très différent. Il y a un seul personnage, et chaque niveau se compose d'<strong>éléments physiques</strong> qu'on peut combiner.</p>
+      <p>L'idée de départ s'inspire librement de Fireboy and Watergirl : des niveaux en 2D qui tiennent sur un seul écran. Le résultat est très différent. Il y a un seul personnage, et chaque niveau se compose d'<strong>éléments physiques</strong> qu'on peut combiner. Chaque élément s'appuie sur de <strong>vraies formules de physique</strong>.</p>
       <ul class="elements">
-        <li><b>Élément ressort :</b> applique une force élastique qui propulse le personnage ou un objet.</li>
+        <li><b>Élément ressort :</b> applique une force élastique qui propulse le personnage.</li>
         <li><b>Élément pendule :</b> une masse oscille au bout d'un fil et transmet son énergie au contact.</li>
-        <li><b>Élément catapulte :</b> projette le personnage ou un objet selon une trajectoire balistique.</li>
+        <li><b>Élément catapulte :</b> projette le personnage selon une trajectoire de mouvement uniformément accéléré (MUA).</li>
         <li><b>Élément friction :</b> change l'adhérence des surfaces et freine le mouvement.</li>
         <li><b>Élément champ :</b> un champ électrique ou magnétique attire ou repousse selon la charge.</li>
       </ul>
@@ -152,7 +160,7 @@ section.block{padding:4rem 0;border-bottom:1px solid var(--border);}
       <div class="media">
         <div class="shot"><img src="nomis-gameplay.png" alt="Un niveau de NOMIS avec le panneau de données physiques"/></div>
         <div class="shot"><img src="nomis-niveaux.png" alt="Écran de sélection des niveaux de NOMIS"/></div>
-        <p class="cap">À gauche : un niveau en cours, avec la physique calculée en temps réel et un panneau de données vivant. À droite : la sélection des niveaux.</p>
+        <p class="cap">À gauche : un niveau en cours, avec la physique calculée en temps réel et un panneau de données vivant.<br/>À droite : la sélection des niveaux.</p>
       </div>
     </div>
   </div>
@@ -165,7 +173,6 @@ section.block{padding:4rem 0;border-bottom:1px solid var(--border);}
     <div class="block-body fu d1">
       <h3>Les joueurs créent leurs propres niveaux</h3>
       <p>Au delà des niveaux fournis, le jeu intègre un <strong>éditeur</strong> : on place soi même les éléments (départ, fin, pièces, blocs, pendule, champ, tireur), on règle les paramètres physiques, puis on enregistre et on rejoue son niveau.</p>
-      <p>Concrètement, le jeu devient aussi un petit outil de création : une logique de <strong>contenu généré par l'utilisateur</strong>.</p>
       <div class="media">
         <div class="shot single"><img src="nomis-editeur.png" alt="Éditeur de niveaux de NOMIS"/></div>
       </div>
@@ -186,7 +193,14 @@ section.block{padding:4rem 0;border-bottom:1px solid var(--border);}
         <li>Déblocage des problèmes et facilitation de la communication.</li>
         <li>Documentation des décisions et de l'avancement.</li>
       </ul>
-      <p>Côté <strong>développement</strong>, j'ai codé la simulation de l'élément ressort et une partie de l'interface du jeu.</p>
+      <p>Côté <strong>développement</strong>, j'ai touché à beaucoup de parties du jeu :</p>
+      <ul class="steps">
+        <li>Tout le <strong>design visuel en pixel art</strong> : décors, objets et leurs animations.</li>
+        <li>L'élément <strong>pendule</strong> (code de la simulation).</li>
+        <li>Le <strong>tireur</strong> (le canon) et la <strong>pièce de monnaie</strong> avec son animation.</li>
+        <li>Une partie du <strong>personnage</strong> : ses déplacements et ses interactions avec les objets.</li>
+        <li>Une partie de l'<strong>affichage des données en temps réel</strong> et le réglage de certains paramètres (masse, vitesse, taille du pendule).</li>
+      </ul>
     </div>
   </div>
 </section>
