@@ -99,6 +99,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
   .proj-section{padding:4rem 1.5rem;}
   .proj-next{padding:3rem 1.5rem;flex-direction:column;gap:1rem;align-items:flex-start;}
 }
+.shot{width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;margin-top:2rem;}
+.shot-cap{font-size:0.7rem;color:var(--mid);margin-top:0.8rem;line-height:1.6;}
 </style>
 </head>
 <body>
@@ -114,7 +116,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
   <div class="proj-hero-left">
     <div class="proj-eyebrow fu">Informatique · Cégep · 2025</div>
     <h1 class="proj-title fu d1">Simulateur de<br/><em>physique Java</em></h1>
-    <p class="proj-desc fu d2">Application Java simulant des éléments physiques réels dans un environnement de jeu interactif. Développé en équipe de 4 étudiants avec la méthodologie Scrum sur une session complète.</p>
+    <p class="proj-desc fu d2">NOMIS est une application Java qui simule des phénomènes physiques réels dans un jeu à plusieurs niveaux, avec un éditeur permettant aux joueurs de créer les leurs. Développé en équipe de 4 avec la méthodologie Scrum sur une session complète.</p>
     <div class="proj-meta fu d3">
       <div class="proj-meta-item">
         <div class="proj-meta-label">Année</div>
@@ -142,10 +144,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
     </div>
   </div>
   <div class="proj-hero-right fu d2">
-    <div class="proj-hero-img">
-      <div class="proj-hero-img-grid"></div>
-      <span>Screenshot principal à venir</span>
-    </div>
+    <img src="images/nomis-menu.png" alt="Menu principal de NOMIS" style="width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;"/>
   </div>
 </section>
 
@@ -175,10 +174,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
         <li>Niveau Friction — forces de frottement et surfaces variables</li>
         <li>Niveau Électrique — simulation de champs et attractions</li>
       </ul>
-      <div class="proj-img-placeholder">
-        <div class="grid"></div>
-        <span>Screenshots des niveaux à venir</span>
-      </div>
+      <img class="shot" src="images/nomis-gameplay.png" alt="Niveau de NOMIS avec panneau de données physiques"/>
+      <p class="shot-cap">Un niveau en cours : physique en temps réel (ressort, pendule, catapulte, friction, champs magnétique et électrique) et un panneau de données vivant.</p>
+      <img class="shot" src="images/nomis-niveaux.png" alt="Sélection des niveaux de NOMIS" style="margin-top:1.5rem;"/>
+    </div>
+  </div>
+</section>
+
+<!-- ÉDITEUR -->
+<section class="proj-section">
+  <div class="proj-section-inner">
+    <div class="proj-section-label fu">Éditeur de niveaux</div>
+    <div class="proj-section-content fu d1">
+      <h3>Les joueurs créent leurs propres niveaux</h3>
+      <p>Au-delà des niveaux fournis, le jeu intègre un <strong>éditeur</strong> : on place soi-même les éléments (départ, fin, pièces, blocs, pendule, champ électrique, tireur, champ magnétique), on ajuste les paramètres physiques, puis on enregistre et on rejoue son niveau.</p>
+      <p>C'est la fonctionnalité dont je suis la plus fière : elle transforme le jeu en un petit outil de création, une vraie logique de <strong>contenu généré par l'utilisateur</strong>.</p>
+      <img class="shot" src="images/nomis-editeur.png" alt="Éditeur de niveaux de NOMIS"/>
     </div>
   </div>
 </section>
