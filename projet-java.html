@@ -3,238 +3,216 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Simulateur de physique — Farah Meraini</title>
+<title>NOMIS · Jeu de physique Java · Farah Meraini</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJz48cmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgZmlsbD0nIzVDMkUxMCcvPjx0ZXh0IHk9JzcyJyB4PSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZm9udC1zaXplPSc1NScgZm9udC1mYW1pbHk9J0dlb3JnaWEsc2VyaWYnIGZpbGw9JyNGMEVBRTAnIGZvbnQtc3R5bGU9J2l0YWxpYyc+Rk08L3RleHQ+PC9zdmc+"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;1,9..144,200;1,9..144,300&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#0A0A0A;--panel:#111;--red:#5C2E10;
-  --warm:#F0EAE0;--mid:#5A5A5A;--dim:#222;
-  --border:rgba(255,255,255,0.06);
-  --mono:'DM Mono',monospace;--serif:'Fraunces',Georgia,serif;
+  --bg:#0B0A09;--panel:#121110;--red:#B5693C;
+  --warm:#F2EDE4;--text:#CFC8BC;--mid:#8A8278;--border:rgba(242,237,228,0.09);
+  --sans:'Inter',system-ui,sans-serif;--mono:'DM Mono',monospace;--serif:'Fraunces',Georgia,serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--warm);font-family:var(--mono);overflow-x:hidden;line-height:1.6;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased;}
 a{color:inherit;text-decoration:none;}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.28;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.2;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(10,10,10,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.nav-back{display:flex;align-items:center;gap:0.6rem;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);transition:color 0.2s;cursor:pointer;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.1rem clamp(1.5rem,5vw,3.5rem);background:rgba(11,10,9,0.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav-back{font-family:var(--mono);font-size:0.64rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);transition:color 0.2s;display:flex;align-items:center;gap:0.5rem;}
+.nav-back::before{content:'←';}
 .nav-back:hover{color:var(--warm);}
-.nav-back::before{content:'←';font-size:0.8rem;}
-.nav-logo{font-family:var(--serif);font-size:1rem;font-weight:200;font-style:italic;color:var(--warm);}
-.nav-tag{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);}
+.nav-logo{font-family:var(--serif);font-size:1rem;font-weight:300;font-style:italic;color:var(--warm);}
+.nav-tag{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);}
 
-/* HERO PROJET */
-.proj-hero{
-  min-height:100vh;padding:8rem 3rem 5rem;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:5rem;align-items:center;
-  border-bottom:1px solid var(--border);
-}
-.proj-hero-left{}
-.proj-eyebrow{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:1.2rem;}
-.proj-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,5rem);font-weight:200;line-height:0.95;color:var(--warm);letter-spacing:-0.02em;margin-bottom:1.5rem;}
-.proj-title em{font-style:italic;color:var(--mid);}
-.proj-desc{font-size:0.85rem;color:var(--mid);line-height:1.9;max-width:440px;margin-bottom:2.5rem;}
-.proj-meta{display:flex;gap:2rem;flex-wrap:wrap;}
-.proj-meta-item{}
-.proj-meta-label{font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:0.3rem;}
-.proj-meta-val{font-size:0.8rem;color:var(--warm);}
-.proj-hero-right{}
-.proj-hero-img{
-  width:100%;aspect-ratio:16/10;
-  background:var(--dim);
-  border:1px solid var(--border);
-  border-radius:4px;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
-}
-.proj-hero-img-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:24px 24px;}
-.proj-hero-img span{font-size:0.65rem;color:rgba(255,255,255,0.1);letter-spacing:0.12em;text-transform:uppercase;position:relative;z-index:1;}
-.proj-pills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.5rem;}
-.pill{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.22rem 0.6rem;border:1px solid var(--dim);color:var(--mid);}
+.container{max-width:1080px;margin:0 auto;padding:0 clamp(1.5rem,5vw,3.5rem);}
+
+/* HERO */
+.hero{padding:9rem 0 3.5rem;border-bottom:1px solid var(--border);}
+.eyebrow{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:1.2rem;}
+.hero h1{font-family:var(--serif);font-size:clamp(2.6rem,6vw,4.4rem);font-weight:300;line-height:0.98;letter-spacing:-0.02em;color:var(--warm);margin-bottom:0.4rem;}
+.hero .sub{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--mid);margin-bottom:1.8rem;}
+.hero .lead{font-size:1rem;line-height:1.75;color:var(--text);max-width:58ch;margin-bottom:2.4rem;}
+.hero-img{border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 26px 60px -30px rgba(0,0,0,0.85);line-height:0;max-width:760px;}
+.hero-img img{width:100%;height:auto;display:block;}
+
+/* META STRIP */
+.meta{display:flex;flex-wrap:wrap;gap:2.4rem;margin:2.2rem 0 2.6rem;}
+.meta-item .k{font-family:var(--mono);font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--red);margin-bottom:0.35rem;}
+.meta-item .v{font-size:0.9rem;color:var(--warm);}
+
+/* EN BREF highlights */
+.brief{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.6rem;}
+.brief-card{border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.1rem;background:rgba(242,237,228,0.02);}
+.brief-card .n{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--warm);line-height:1;margin-bottom:0.5rem;}
+.brief-card .t{font-size:0.78rem;color:var(--mid);line-height:1.4;}
 
 /* SECTIONS */
-.proj-section{padding:5rem 3rem;border-bottom:1px solid var(--border);}
-.proj-section:nth-child(even){background:var(--panel);}
-.proj-section-inner{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start;}
-.proj-section-label{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);padding-top:0.3rem;}
-.proj-section-content h3{font-family:var(--serif);font-size:1.8rem;font-weight:200;color:var(--warm);margin-bottom:1rem;line-height:1.1;}
-.proj-section-content p{font-size:0.85rem;color:var(--mid);line-height:1.9;margin-bottom:1rem;}
-.proj-section-content strong{color:var(--warm);font-weight:400;}
-.proj-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-top:1rem;}
-.proj-list li{font-size:0.82rem;color:var(--mid);padding-left:1.2rem;position:relative;line-height:1.6;}
-.proj-list li::before{content:'→';position:absolute;left:0;color:var(--red);}
+section.block{padding:4rem 0;border-bottom:1px solid var(--border);}
+.block-grid{display:grid;grid-template-columns:230px 1fr;gap:3rem;align-items:start;}
+.block-label{font-family:var(--serif);font-style:italic;font-weight:300;font-size:1.5rem;color:var(--red);line-height:1.1;position:sticky;top:6rem;}
+.block-body h3{font-family:var(--serif);font-weight:300;font-size:clamp(1.4rem,2.6vw,1.9rem);color:var(--warm);margin-bottom:1rem;line-height:1.12;}
+.block-body p{font-size:0.96rem;line-height:1.75;color:var(--text);margin-bottom:1.1rem;max-width:60ch;}
+.block-body strong{color:var(--warm);font-weight:600;}
 
-/* PLACEHOLDER IMAGE */
-.proj-img-placeholder{
-  width:100%;aspect-ratio:16/9;
-  background:var(--dim);border:1px solid var(--border);
-  border-radius:4px;margin-top:2rem;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
-}
-.proj-img-placeholder .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:20px 20px;}
-.proj-img-placeholder span{font-size:0.6rem;color:rgba(255,255,255,0.08);letter-spacing:0.12em;text-transform:uppercase;position:relative;z-index:1;}
+/* elements list */
+.elements{list-style:none;display:flex;flex-direction:column;gap:0.9rem;margin:1.4rem 0 0.6rem;}
+.elements li{font-size:0.94rem;line-height:1.6;color:var(--text);padding-left:1.4rem;position:relative;max-width:62ch;}
+.elements li::before{content:'';position:absolute;left:0;top:0.6em;width:7px;height:7px;border-radius:50%;background:var(--red);}
+.elements li b{color:var(--warm);font-weight:600;}
+.note{font-size:0.86rem;color:var(--mid);font-style:italic;margin-top:0.6rem;}
 
-/* NEXT PROJECT */
-.proj-next{padding:4rem 3rem;display:flex;justify-content:space-between;align-items:center;}
-.proj-next-label{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);}
-.proj-next-link{font-family:var(--serif);font-size:1.5rem;font-weight:200;color:var(--warm);transition:color 0.2s;display:flex;align-items:center;gap:0.8rem;}
-.proj-next-link:hover{color:var(--red);}
-.proj-next-link::after{content:'→';}
+.steps{list-style:none;display:flex;flex-direction:column;gap:0.7rem;margin:1rem 0;}
+.steps li{font-size:0.94rem;line-height:1.6;color:var(--text);padding-left:1.4rem;position:relative;max-width:60ch;}
+.steps li::before{content:'→';position:absolute;left:0;color:var(--red);}
 
-/* FADE */
-.fu{opacity:0;transform:translateY(20px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+/* media: reduced, controlled */
+.media{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.8rem;}
+.shot{border:1px solid var(--border);border-radius:8px;overflow:hidden;line-height:0;background:#0d0c0b;}
+.shot img{width:100%;height:auto;display:block;}
+.shot.single{max-width:560px;}
+.cap{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.02em;color:var(--mid);margin-top:0.8rem;line-height:1.5;grid-column:1 / -1;}
+
+/* closing */
+.closing{padding:3.5rem 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+.closing .k{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);}
+.closing a{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--warm);display:flex;align-items:center;gap:0.7rem;transition:color 0.2s;}
+.closing a::before{content:'←';}
+.closing a:hover{color:var(--red);}
+
+/* fade */
+.fu{opacity:0;transform:translateY(18px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
 .fu.vis{opacity:1;transform:none;}
-.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+.d1{transition-delay:0.08s;}.d2{transition-delay:0.16s;}
 
-@media(max-width:900px){
-  nav{padding:1rem 1.5rem;}
-  .proj-hero,.proj-section-inner{grid-template-columns:1fr;}
-  .proj-hero{padding:7rem 1.5rem 4rem;}
-  .proj-section{padding:4rem 1.5rem;}
-  .proj-next{padding:3rem 1.5rem;flex-direction:column;gap:1rem;align-items:flex-start;}
+@media(max-width:820px){
+  .block-grid{grid-template-columns:1fr;gap:1.2rem;}
+  .block-label{position:static;font-size:1.3rem;}
+  .brief{grid-template-columns:1fr 1fr;}
+  .media{grid-template-columns:1fr;}
+  .hero{padding:7.5rem 0 3rem;}
 }
-.shot{width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;margin-top:2rem;}
-.shot-cap{font-size:0.7rem;color:var(--mid);margin-top:0.8rem;line-height:1.6;}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-back">Retour au portfolio</a>
+  <a href="index.html" class="nav-back">Retour</a>
   <span class="nav-logo">Farah Meraini</span>
-  <span class="nav-tag">02 / Projets</span>
+  <span class="nav-tag">Projet 01</span>
 </nav>
 
 <!-- HERO -->
-<section class="proj-hero">
-  <div class="proj-hero-left">
-    <div class="proj-eyebrow fu">Informatique · Cégep · 2025</div>
-    <h1 class="proj-title fu d1">Simulateur de<br/><em>physique Java</em></h1>
-    <p class="proj-desc fu d2">NOMIS est une application Java qui simule des phénomènes physiques réels dans un jeu à plusieurs niveaux, avec un éditeur permettant aux joueurs de créer les leurs. Développé en équipe de 4 avec la méthodologie Scrum sur une session complète.</p>
-    <div class="proj-meta fu d3">
-      <div class="proj-meta-item">
-        <div class="proj-meta-label">Année</div>
-        <div class="proj-meta-val">2025</div>
-      </div>
-      <div class="proj-meta-item">
-        <div class="proj-meta-label">Équipe</div>
-        <div class="proj-meta-val">4 personnes</div>
-      </div>
-      <div class="proj-meta-item">
-        <div class="proj-meta-label">Rôle</div>
-        <div class="proj-meta-val">Scrum Master</div>
-      </div>
-      <div class="proj-meta-item">
-        <div class="proj-meta-label">Durée</div>
-        <div class="proj-meta-val">1 session</div>
-      </div>
-    </div>
-    <div class="proj-pills fu d3">
-      <span class="pill">Java</span>
-      <span class="pill">Scrum</span>
-      <span class="pill">Physique simulée</span>
-      <span class="pill">OOP</span>
-      <span class="pill">Game Design</span>
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow fu">Informatique · Cégep · 2025</div>
+    <h1 class="fu d1">NOMIS</h1>
+    <div class="sub fu d1">Jeu de physique 2D en Java</div>
+    <p class="lead fu d2">Un jeu 2D où chaque niveau est construit autour d'un phénomène physique réel. Développé en équipe de quatre sur une session, avec un éditeur qui laisse les joueurs créer leurs propres niveaux. J'y ai tenu le rôle de Scrum Master tout en codant une partie du jeu.</p>
+    <div class="hero-img fu d2"><img src="nomis-menu.png" alt="Menu principal de NOMIS"/></div>
+
+    <div class="meta fu">
+      <div class="meta-item"><div class="k">Année</div><div class="v">2025</div></div>
+      <div class="meta-item"><div class="k">Équipe</div><div class="v">4 personnes</div></div>
+      <div class="meta-item"><div class="k">Rôle</div><div class="v">Scrum Master et développement</div></div>
+      <div class="meta-item"><div class="k">Durée</div><div class="v">1 session</div></div>
+      <div class="meta-item"><div class="k">Langage</div><div class="v">Java (POO)</div></div>
     </div>
   </div>
-  <div class="proj-hero-right fu d2">
-    <img src="nomis-menu.png" alt="Menu principal de NOMIS" style="width:100%;height:auto;display:block;border:1px solid var(--border);border-radius:4px;"/>
-  </div>
-</section>
+</header>
 
 <!-- CONTEXTE -->
-<section class="proj-section">
-  <div class="proj-section-inner">
-    <div class="proj-section-label fu">Contexte</div>
-    <div class="proj-section-content fu d1">
+<section class="block">
+  <div class="container block-grid">
+    <div class="block-label fu">Contexte</div>
+    <div class="block-body fu d1">
       <h3>Le projet final du DEC</h3>
-      <p>Dans le cadre de notre dernière session au Collège de Maisonneuve, notre équipe devait concevoir une application Java intégrant les concepts appris tout au long du programme — physique, mathématiques, programmation orientée objet.</p>
-      <p>Le défi : <strong>modéliser des phénomènes physiques réels</strong> dans un environnement interactif et ludique, tout en gérant un projet en équipe sur plusieurs semaines.</p>
+      <p>Pour notre dernière session au Collège de Maisonneuve, l'équipe devait concevoir une application Java réunissant les concepts du programme : physique, mathématiques et programmation orientée objet.</p>
+      <p>Le défi : <strong>modéliser des phénomènes physiques réels</strong> dans un environnement interactif et ludique, tout en gérant un projet d'équipe sur plusieurs semaines.</p>
     </div>
   </div>
 </section>
 
 <!-- LE JEU -->
-<section class="proj-section">
-  <div class="proj-section-inner">
-    <div class="proj-section-label fu">Le jeu</div>
-    <div class="proj-section-content fu d1">
-      <h3>Inspiré de Fireboy & Watergirl</h3>
-      <p>Notre jeu s'inspire de Fireboy & Watergirl mais avec un seul personnage contrôlable à travers plusieurs niveaux thématiques, chacun centré sur un phénomène physique différent.</p>
-      <ul class="proj-list">
-        <li>Niveau Ressort — simulation de force élastique et d'oscillations</li>
-        <li>Niveau Pendule — mouvement pendulaire et conservation d'énergie</li>
-        <li>Niveau Catapulte — projectile et trajectoire balistique</li>
-        <li>Niveau Friction — forces de frottement et surfaces variables</li>
-        <li>Niveau Électrique — simulation de champs et attractions</li>
+<section class="block">
+  <div class="container block-grid">
+    <div class="block-label fu">Le jeu</div>
+    <div class="block-body fu d1">
+      <h3>Des niveaux construits à partir d'éléments physiques</h3>
+      <p>L'idée de départ s'inspire librement de Fireboy and Watergirl : des niveaux en 2D qui tiennent sur un seul écran. Le résultat est très différent. Il y a un seul personnage, et chaque niveau se compose d'<strong>éléments physiques</strong> qu'on peut combiner.</p>
+      <ul class="elements">
+        <li><b>Élément ressort :</b> applique une force élastique qui propulse le personnage ou un objet.</li>
+        <li><b>Élément pendule :</b> une masse oscille au bout d'un fil et transmet son énergie au contact.</li>
+        <li><b>Élément catapulte :</b> projette le personnage ou un objet selon une trajectoire balistique.</li>
+        <li><b>Élément friction :</b> change l'adhérence des surfaces et freine le mouvement.</li>
+        <li><b>Élément champ :</b> un champ électrique ou magnétique attire ou repousse selon la charge.</li>
       </ul>
-      <img class="shot" src="nomis-gameplay.png" alt="Niveau de NOMIS avec panneau de données physiques"/>
-      <p class="shot-cap">Un niveau en cours : physique en temps réel (ressort, pendule, catapulte, friction, champs magnétique et électrique) et un panneau de données vivant.</p>
-      <img class="shot" src="nomis-niveaux.png" alt="Sélection des niveaux de NOMIS" style="margin-top:1.5rem;"/>
+      <p class="note">Un même niveau peut réunir plusieurs de ces éléments à la fois.</p>
+      <div class="media">
+        <div class="shot"><img src="nomis-gameplay.png" alt="Un niveau de NOMIS avec le panneau de données physiques"/></div>
+        <div class="shot"><img src="nomis-niveaux.png" alt="Écran de sélection des niveaux de NOMIS"/></div>
+        <p class="cap">À gauche : un niveau en cours, avec la physique calculée en temps réel et un panneau de données vivant. À droite : la sélection des niveaux.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ÉDITEUR -->
-<section class="proj-section">
-  <div class="proj-section-inner">
-    <div class="proj-section-label fu">Éditeur de niveaux</div>
-    <div class="proj-section-content fu d1">
+<section class="block">
+  <div class="container block-grid">
+    <div class="block-label fu">Éditeur</div>
+    <div class="block-body fu d1">
       <h3>Les joueurs créent leurs propres niveaux</h3>
-      <p>Au-delà des niveaux fournis, le jeu intègre un <strong>éditeur</strong> : on place soi-même les éléments (départ, fin, pièces, blocs, pendule, champ électrique, tireur, champ magnétique), on ajuste les paramètres physiques, puis on enregistre et on rejoue son niveau.</p>
-      <p>C'est la fonctionnalité dont je suis la plus fière : elle transforme le jeu en un petit outil de création, une vraie logique de <strong>contenu généré par l'utilisateur</strong>.</p>
-      <img class="shot" src="nomis-editeur.png" alt="Éditeur de niveaux de NOMIS"/>
+      <p>Au delà des niveaux fournis, le jeu intègre un <strong>éditeur</strong> : on place soi même les éléments (départ, fin, pièces, blocs, pendule, champ, tireur), on règle les paramètres physiques, puis on enregistre et on rejoue son niveau.</p>
+      <p>Concrètement, le jeu devient aussi un petit outil de création : une logique de <strong>contenu généré par l'utilisateur</strong>.</p>
+      <div class="media">
+        <div class="shot single"><img src="nomis-editeur.png" alt="Éditeur de niveaux de NOMIS"/></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- MON RÔLE -->
-<section class="proj-section">
-  <div class="proj-section-inner">
-    <div class="proj-section-label fu">Mon rôle</div>
-    <div class="proj-section-content fu d1">
-      <h3>Scrum Master de l'équipe</h3>
-      <p>En tant que Scrum Master, j'étais responsable de la coordination de l'équipe et du respect de la méthodologie agile tout au long du projet.</p>
-      <ul class="proj-list">
-        <li>Organisation des réunions hebdomadaires — What did you do? What will you do? Any blockers?</li>
-        <li>Suivi du backlog et des livrables à chaque sprint</li>
-        <li>Résolution des blocages et facilitation de la communication</li>
-        <li>Documentation des décisions et de l'avancement</li>
+<section class="block">
+  <div class="container block-grid">
+    <div class="block-label fu">Mon rôle</div>
+    <div class="block-body fu d1">
+      <h3>Scrum Master, et développeuse</h3>
+      <p>J'ai porté deux casquettes sur ce projet. Comme <strong>Scrum Master</strong>, je coordonnais l'équipe et veillais au bon déroulement de la méthode agile :</p>
+      <ul class="steps">
+        <li>Réunions hebdomadaires : ce qui a été fait, ce qui s'en vient, les blocages.</li>
+        <li>Suivi du backlog et des livrables à chaque sprint.</li>
+        <li>Déblocage des problèmes et facilitation de la communication.</li>
+        <li>Documentation des décisions et de l'avancement.</li>
       </ul>
-      <p style="margin-top:1rem;">J'ai aussi contribué au développement — principalement sur la <strong>simulation du ressort</strong> et l'<strong>interface utilisateur</strong>.</p>
+      <p>Côté <strong>développement</strong>, j'ai codé la simulation de l'élément ressort et une partie de l'interface du jeu.</p>
     </div>
   </div>
 </section>
 
 <!-- APPRENTISSAGES -->
-<section class="proj-section">
-  <div class="proj-section-inner">
-    <div class="proj-section-label fu">Apprentissages</div>
-    <div class="proj-section-content fu d1">
-      <h3>Ce que j'ai appris</h3>
-      <ul class="proj-list">
-        <li>Gestion d'un projet en équipe avec des contraintes de temps réelles</li>
-        <li>Application concrète des concepts de physique en code</li>
-        <li>Méthodologie Scrum appliquée — pas juste théorique</li>
-        <li>Débogage de simulations physiques et calibrage des paramètres</li>
-        <li>Communication et leadership dans un contexte technique</li>
+<section class="block">
+  <div class="container block-grid">
+    <div class="block-label fu">Ce que j'en retire</div>
+    <div class="block-body fu d1">
+      <ul class="steps">
+        <li>Mener un projet d'équipe avec de vraies contraintes de temps.</li>
+        <li>Traduire des concepts de physique en code qui fonctionne.</li>
+        <li>Appliquer Scrum pour de vrai, pas seulement en théorie.</li>
+        <li>Déboguer une simulation et calibrer ses paramètres.</li>
+        <li>Communiquer et prendre le lead dans un contexte technique.</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- NEXT PROJECT -->
-<div class="proj-next">
-  <div>
-    <div class="proj-next-label">Projet suivant</div>
+<!-- CLOSING -->
+<div class="container">
+  <div class="closing">
+    <span class="k">D'autres projets arrivent</span>
+    <a href="index.html">Retour au portfolio</a>
   </div>
-  <a href="projet-robot.html" class="proj-next-link">Robot auto-équilibré</a>
 </div>
 
 <script>
